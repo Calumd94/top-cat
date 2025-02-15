@@ -8,7 +8,7 @@ import (
 )
 
 // Find sources handler
-func findSourcesHandler(apiKey string) http.HandlerFunc {
+func FindSourcesHandler(apiKey string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

@@ -9,7 +9,7 @@ import (
 )
 
 // Find title handler
-func findTitleHandler(apiKey string) http.HandlerFunc {
+func FindTitleHandler(apiKey string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

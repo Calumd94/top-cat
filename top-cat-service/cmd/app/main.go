@@ -6,12 +6,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/Calumd94/top-cat/internal/handlers"
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	// Load environment variables from .env file
-	err := godotenv.Load()
+	err := godotenv.Load("/root/.env") // This path will only work for running the container - It will not work on a true Local run
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -23,9 +24,9 @@ func main() {
 	}
 
 	// Define routes
-	http.HandleFunc("/api/status", statusHandler)
-	http.HandleFunc("/api/titles/", findTitleHandler(apiKey))
-	http.HandleFunc("/api/sources/", findSourcesHandler(apiKey))
+	http.HandleFunc("/api/status", handlers.StatusHandler)
+	http.HandleFunc("/api/titles/", handlers.FindTitleHandler(apiKey))
+	http.HandleFunc("/api/sources/", handlers.FindSourcesHandler(apiKey))
 
 	// Configure CORS middleware
 	corsHandler := corsMiddleware(http.DefaultServeMux)

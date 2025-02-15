@@ -1,3 +1,18 @@
+### **Docker**
+1. Build the docker image
+```bash
+docker build --no-cache -t top-cat-service .
+```
+2. Run the container
+```bash
+docker run -p 8080:8080 top-cat-service
+```
+3. Test if the server is running by command
+```bash
+curl http://localhost:8080/api/status
+```
+
+
 ### **Initializing and installing dependencies**
 1. Initialize a Go Module
 ```bash
