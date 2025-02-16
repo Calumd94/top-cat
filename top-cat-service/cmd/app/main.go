@@ -11,10 +11,23 @@ import (
 )
 
 func main() {
-	// Load environment variables from .env file
-	err := godotenv.Load("/root/.env") // This path will only work for running the container - It will not work on a true Local run
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Detect environment (default: "development")
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "dev" // Default to development mode
+	}
+
+	// Determine the correct .env file to load
+	envFile := ""
+	if env == "dev" {
+		envFile = "../../.env." + env
+	} else {
+		envFile = "/root/.env." + env
+	}
+
+	// Load environment variables
+	if err := godotenv.Load(envFile); err != nil {
+		log.Printf("Warning: No %s file found, using system environment variables", envFile)
 	}
 
 	// Grab the API key from the environment variables

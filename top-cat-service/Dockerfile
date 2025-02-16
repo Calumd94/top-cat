@@ -24,10 +24,13 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 
 # Copy any necessary configuration files (if needed)
-COPY .env .
+COPY .env.prod /root/.env.prod
+
+# Set environment variable to production
+ENV ENV=prod
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 8089
 
 # Run the Go application
 CMD ["./main"]
