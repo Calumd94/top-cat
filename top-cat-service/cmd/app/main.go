@@ -45,18 +45,23 @@ func main() {
 	corsHandler := corsMiddleware(http.DefaultServeMux)
 
 	// Start the server
+	// If you cannot connect to the API (502 error) you may want to check the IP-address of the kubernetes node - it is not static and so may be different to that in the .env.prod file
+	ip := os.Getenv("IP_ADDRESS")
+	if ip == "" {
+		ip = "localhost" // Default ip-address
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // Default port
 	}
 	server := &http.Server{
-		Addr:         ":" + port,
+		Addr:         "0.0.0.0:" + port, // Supports both IPv4 & IPv6
 		Handler:      corsHandler,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 
-	log.Printf("Server started on http://localhost:%s\n", port)
+	log.Printf("Server started on http://%s:%s\n", ip, port)
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}

@@ -17,6 +17,9 @@ RUN go build -o main ./cmd/app && ls -lah main
 # Use a minimal image for the final container
 FROM ubuntu:latest
 
+# Install CA certificates (Fixes TLS issues) ## Needed for connecting to WatchModeAPI
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory
 WORKDIR /root/
 

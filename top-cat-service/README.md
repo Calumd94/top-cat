@@ -58,6 +58,10 @@ docker tag top-cat-service:latest calumd94/top-cat-service:latest
 docker push my-registry/my-image:latest
 docker push calumd94/top-cat-service:latest
 ```
+3. When rebuilding and pushing:
+```bash
+docker build -t calumd94/top-cat-service:latest .
+```
 
 ---
 <br><br>
@@ -99,6 +103,9 @@ kubectl get deployments -n default #find deployemnts in default
 ```bash
 kubectl delete deployment <deployment-name> -n default #Remove this deployment from this namespace
 kubectl delete deployment top-cat-service-deployment -n default
+```
+```bash
+kubectl rollout restart deployment top-cat-service-deployment -n top-cat #Restart deployment
 ```
 
 ---
