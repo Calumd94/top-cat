@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -22,6 +23,7 @@ func FindSourcesHandler(apiKey string) http.HandlerFunc {
 			return
 		}
 
+		log.Printf("FindSourcesHandler: Search for stream providers {%s}", movieShowID)
 		url := fmt.Sprintf("https://api.watchmode.com/v1/title/%s/details/?apiKey=%s&append_to_response=sources", movieShowID, apiKey)
 
 		// Make the HTTP request
@@ -49,5 +51,6 @@ func FindSourcesHandler(apiKey string) http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(data)
+		log.Printf("FindSourcesHandler: Data returned for ID {%s}", movieShowID)
 	}
 }

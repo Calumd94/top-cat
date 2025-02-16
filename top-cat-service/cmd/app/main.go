@@ -11,10 +11,23 @@ import (
 )
 
 func main() {
-	// Load environment variables from .env file
-	err := godotenv.Load("/root/.env") // This path will only work for running the container - It will not work on a true Local run
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Detect environment (default: "development")
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "dev" // Default to development mode
+	}
+
+	// Determine the correct .env file to load
+	envFile := ""
+	if env == "dev" {
+		envFile = "../../.env." + env
+	} else {
+		envFile = "/root/.env." + env
+	}
+
+	// Load environment variables
+	if err := godotenv.Load(envFile); err != nil {
+		log.Printf("Warning: No %s file found, using system environment variables", envFile)
 	}
 
 	// Grab the API key from the environment variables
@@ -32,18 +45,23 @@ func main() {
 	corsHandler := corsMiddleware(http.DefaultServeMux)
 
 	// Start the server
+	// If you cannot connect to the API (502 error) you may want to check the IP-address of the kubernetes node - it is not static and so may be different to that in the .env.prod file
+	ip := os.Getenv("IP_ADDRESS")
+	if ip == "" {
+		ip = "localhost" // Default ip-address
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // Default port
 	}
 	server := &http.Server{
-		Addr:         ":" + port,
+		Addr:         "0.0.0.0:" + port, // Supports both IPv4 & IPv6
 		Handler:      corsHandler,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 
-	log.Printf("Server started on http://localhost:%s\n", port)
+	log.Printf("Server started on http://%s:%s\n", ip, port)
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}

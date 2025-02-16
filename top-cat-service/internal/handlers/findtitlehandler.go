@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -24,6 +25,7 @@ func FindTitleHandler(apiKey string) http.HandlerFunc {
 		}
 
 		encodedSearchString := url.QueryEscape(titleSearchString)
+		log.Printf("FindTitleHandler: Search for title {%s}", encodedSearchString)
 		url := fmt.Sprintf("https://api.watchmode.com/v1/autocomplete-search/?apiKey=%s&search_value=%s&search_type=2", apiKey, encodedSearchString)
 
 		// Make the HTTP request
@@ -51,5 +53,6 @@ func FindTitleHandler(apiKey string) http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(data)
+		log.Printf("FindTitleHandler: Data returned for title {%s}", encodedSearchString)
 	}
 }

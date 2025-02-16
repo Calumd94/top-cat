@@ -17,6 +17,9 @@ RUN go build -o main ./cmd/app && ls -lah main
 # Use a minimal image for the final container
 FROM ubuntu:latest
 
+# Install CA certificates (Fixes TLS issues) ## Needed for connecting to WatchModeAPI
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory
 WORKDIR /root/
 
@@ -24,10 +27,13 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 
 # Copy any necessary configuration files (if needed)
-COPY .env .
+COPY .env.prod /root/.env.prod
+
+# Set environment variable to production
+ENV ENV=prod
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 8089
 
 # Run the Go application
 CMD ["./main"]

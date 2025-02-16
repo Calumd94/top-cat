@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: top-cat-service-deployment
+spec:
+  replicas: 1 # Change the number for scaling
+  selector:
+    matchLabels:
+      app: top-cat-service
+  template:
+    metadata:
+      labels:
+        app: top-cat-service
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      imagePullSecrets:
+        - name: docker-registry-secret
+      containers:
+        - name: top-cat-service
+          image: calumd94/top-cat-service:latest
+          ports:
+            - containerPort: 8089 # or whatever port your app listens on
+          env:
+            - name: ENV
+              value: "prod"
