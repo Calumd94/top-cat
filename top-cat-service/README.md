@@ -145,5 +145,18 @@ go install github.com/joho/godotenv #example
 ```
 
 ---
+
+### **GO: delve**
+delve is installed. It is the de facto debugging tool for Golang.
+1. To run delve debugger
+```bash
+cd top-cat-service/cmd/app
+```
+2. From command line run:
+```bash
+dlv debug ./main.go
+```
+
+---
 <br><br>
 
