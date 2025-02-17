@@ -4,6 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+**Make sure you are in the UI project directory**
+### `cd top-cat-ui`
+
 In the project directory, you can run:
 
 ### `npm start`

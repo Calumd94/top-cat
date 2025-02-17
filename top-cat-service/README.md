@@ -29,7 +29,7 @@ docker run -p 8089:8089 top-cat-service
 ```bash
 curl http://localhost:8089/api/status
 ```
-5. Navigate to the URL and test
+5. ~~Navigate to the URL and test~~ < This no longer works due to the CloudFlare mapping having been updated to use the kubernetes node (minkube) ip address.
 ```
 https://api.topcatapp.com/api/status
 ```
