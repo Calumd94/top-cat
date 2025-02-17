@@ -46,6 +46,18 @@ docker images #See all docker images in the registry
 <br><br>
 
 
+## Running Minikube after Server restart
+1. Check the status
+```bash
+minikube status
+```
+2. Start minikube if its down
+```bash
+minikube start
+```
+
+---
+
 ## Running Kubernetes PROD
 Make sure you push the local docker image to the repository
 1. Tag the image
@@ -112,7 +124,7 @@ kubectl rollout restart deployment top-cat-service-deployment -n top-cat #Restar
 <br><br>
 
 
-## Initializing and installing dependencies
+## GO: Initializing and installing dependencies
 1. Initialize a Go Module
 ```bash
 go mod init <module-name>
