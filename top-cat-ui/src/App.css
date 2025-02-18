@@ -107,3 +107,11 @@
   font-weight: bold;
   color: #ff6b6b; /* Red error message */
 }
+
+/* Titles Page */
+
+.title-card {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
