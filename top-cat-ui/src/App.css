@@ -6,6 +6,8 @@
   padding: 2rem;
   padding-bottom: 5rem;
   font-family: var(--font-geist-sans);
+  background-color: #1a1a1a; /* Dark background */
+  color: #ffffff; /* White text */
 }
 
 @media (min-width: 640px) {
@@ -20,6 +22,7 @@
   align-items: center;
   gap: 2rem;
   grid-row-start: 2;
+  width: 100%; /* Ensure main section takes full width */
 }
 
 .content {
@@ -27,31 +30,64 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  width: 100%; /* Ensure content takes full width */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%; /* Ensure content takes full width */
+  min-width: 100%;
+  max-width: 800px; /* Set a reasonable max-width */
 }
 
 .search-container {
+  width: 100%;
+  min-width: 100%;
   display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Space between input and button */
+  justify-content: center;
 }
 
 .search-bar {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  border: 1px solid #333333; /* Darker border */
   border-radius: 0.25rem;
-  width: 100%;
   padding: 0.5rem 0.75rem;
-  color: #4a5568;
+  margin-right: 0.5rem;
+  color: #ffffff; /* White text */
+  background-color: #333333; /* Dark input background */
   line-height: 1.5;
+  min-width: 200px; /* Ensures it doesn't get too small */
+  max-width: 100%;
+  flex-grow: 1;
+}
+
+@media (min-width: 640px) {
+  .search-bar {
+    width: 80%; /* Adjust width for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-bar {
+    width: 60%; /* Adjust width for desktops */
+    min-width: 100%;
+  }
+}
+
+.search-bar::placeholder {
+  color: #999999; /* Light gray placeholder */
 }
 
 .search-bar:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5); /* Blue focus shadow */
 }
 
 .submit-button {
-  background-color: #9f2382;
+  background-color: #9f2382; /* Purple button */
   color: white;
   border: none;
   border-radius: 0.25rem;
@@ -62,11 +98,12 @@
 }
 
 .submit-button:hover {
-  background-color: #821068;
+  background-color: #821068; /* Darker purple on hover */
 }
 
 .error-message {
   text-align: center;
   margin-top: 5rem;
   font-weight: bold;
+  color: #ff6b6b; /* Red error message */
 }

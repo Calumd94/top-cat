@@ -65,9 +65,9 @@ export default function Home() {
             alt="TopCat logo"
             style={{ width: '11.25rem', height: '10rem' }}
           />
-          <div className="flex">
-            <form onSubmit={handleSubmit}>
-              <label>Search a movie or TV show:</label>
+          <div>
+            <form onSubmit={handleSubmit} className='form'>
+              <label>Search a movie or TV show</label>
               <div className="search-container">
                 <input
                   className="search-bar"
