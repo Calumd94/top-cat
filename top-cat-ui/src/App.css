@@ -110,8 +110,42 @@
 
 /* Titles Page */
 
+.titles-card-container {
+  display: grid;
+  gap: 1rem; /* Space between cards */
+  grid-template-columns: repeat(1, 1fr); /* 2 columns by default (mobile) */
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  padding-bottom: 5rem;
+  font-family: var(--font-geist-sans);
+  background-color: #1a1a1a; /* Dark background */
+  color: #ffffff; /* White text */
+}
+
+@media (min-width: 640px) {
+  .titles-card-container {
+    grid-template-columns: repeat(3, 1fr); /* 4 columns on tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  .titles-card-container {
+    grid-template-columns: repeat(5, 1fr); /* 6 columns on large screens */
+  }
+}
+
 .title-card {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 80%;
+  max-width: 80%;
+  min-height: 100%;
+  cursor: pointer;
 }

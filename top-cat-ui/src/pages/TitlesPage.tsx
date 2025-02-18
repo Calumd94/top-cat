@@ -12,8 +12,7 @@ export default function TitlesPage() {
     };
 
     return (
-        <div className="container">
-            <div>
+        <div className="titles-card-container">
                 {movieOrShowResponseResults && movieOrShowResponseResults.length > 0 &&
                     movieOrShowResponseResults.map((item: Result) => (
                         <button key={item.id} onClick={() => handleMovieShowCardClick(item)} className="title-card">
@@ -41,7 +40,6 @@ export default function TitlesPage() {
                             </div>
                         </button>
                     ))}
-            </div>
         </div>
     );
 }

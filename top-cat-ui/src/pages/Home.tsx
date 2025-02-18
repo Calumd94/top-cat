@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MovieOrShowResponse, Result } from "../types/interfaces";
 // import MovieShowCards from "./components/movieShowCards";
@@ -9,9 +9,13 @@ export default function Home() {
     const [apiResponse, setApiResponse] = useState("");
     const [movieOrShowResponseResults, setMovieOrShowResponseResults] =
         useState<Result[]>();
+    const envRef = useRef<string>(""); // Initialize with an empty string
 
-    const env = process.env.ENV || "dev"; // Default to dev if not set
-    console.log(`Running in ${env} mode`);
+    useEffect(() => {
+        envRef.current = process.env.ENV || "dev"; // Default to dev if not set
+        console.log(`Running in ${envRef.current} mode`);
+    }, []);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); // Prevent the default form submission behavior
@@ -72,9 +76,6 @@ export default function Home() {
                         </form>
                         {apiResponse && <p style={{ marginLeft: '1rem', marginTop: '2rem' }}>{apiResponse}</p>}
                     </div>
-                    {/* {movieOrShowResponseResults &&
-            <MovieShowCards movieOrShowResponseResults={movieOrShowResponseResults} />
-          } */}
                     {
                         (movieOrShowResponseResults && movieOrShowResponseResults?.length <= 0) &&
                         <p className="text-center mt-20"><b>oops! No movie or tv show found</b></p>
