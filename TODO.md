@@ -1,2 +1,3 @@
 - [ ] Create a Dockerfile.dev to be used for running the Docker container locally (I can map this to a CloudFlare api.dev.topcatapp.com)
 - [ ] Redis caching for searches
+- [ ] Add Filter dropdown for Region in the movieShowDetailsPage

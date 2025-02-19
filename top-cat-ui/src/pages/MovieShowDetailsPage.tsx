@@ -8,19 +8,33 @@ export default function MovieShowDetailsPage() {
     const [movieDetails, setMovieDetails] = useState<MovieShowDetails | null>(null);
     const [sortedData, setSortedData] = useState<Sources[]>([]);
     const [sortConfig, setSortConfig] = useState<{ key: keyof Sources; direction: "asc" | "desc" } | null>(null);
+    const [uniqueRegionsArray, setUniqueRegionsArray] = useState<string[]>([]);
+    const [selectedValue, setSelectedValue] = useState('');
 
     useEffect(() => {
         if (id) {
             const fetchMovieDetails = async () => {
                 const response = await fetch(`https://api.topcatapp.com/api/sources/${id}`);
+                // const response = await fetch(`http://localhost:8080/api/sources/${id}`); // Uncomment when running the back-end locally
                 const data = await response.json();
                 setMovieDetails(data);
                 setSortedData(data.sources);
+                // Ensure uniqueRegions is a Set<string> so we can remove duplicates
+                const uniqueRegions = new Set<string>(data.sources.map((source: Sources) => source.region));
+                const uniqueRegionsArray = Array.from(uniqueRegions);
+                console.log(uniqueRegions);
+                console.log(uniqueRegions.has('GB'));
+
+                setUniqueRegionsArray(uniqueRegionsArray);
             };
 
             fetchMovieDetails();
         }
     }, [id]);
+
+    useEffect(() => {
+        setSelectedValue(uniqueRegionsArray?.includes('GB') ? 'GB' : uniqueRegionsArray[0] ?? '');
+    }, [uniqueRegionsArray]);
 
     const handleSort = (key: keyof Sources) => {
         let direction: "asc" | "desc" = "asc";
@@ -40,77 +54,76 @@ export default function MovieShowDetailsPage() {
         console.log("Updated sortedData:", sorted);
     };
 
+    const handleRegionDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedValue(event.target.value);
+    };
+
 
     if (!movieDetails) {
         return <p className="text-center">Loading...</p>;
     }
 
     return (
-        <div className="container">
-            <div className="flex flex-col lg:flex-row items-start gap-8">
-                <div className="flex-none h-50 lg:h-auto lg:w-50 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+        <div className="details-container">
+            <div>
+                <div className="movie-show-poster">
                     <img
                         src={movieDetails?.poster}
                         alt={movieDetails?.title}
-                        className="w-full h-auto object-cover"
                     />
                 </div>
-                <div className="flex flex-col">
-                    <h1 className="text-2xl font-bold">{movieDetails?.title}</h1>
-                    <p className="mt-2">{movieDetails?.plot_overview}</p>
-                    <p className="mt-2">Type: {movieDetails?.type}</p>
-                    <p className="mt-2">Released: {movieDetails?.year}</p>
+                <div>
+                    <h1>{movieDetails?.title}</h1>
+                    <p>{movieDetails?.plot_overview}</p>
+                    <p>Type: {movieDetails?.type}</p>
+                    <p>Released: {movieDetails?.year}</p>
                 </div>
             </div>
 
             {sortedData && sortedData.length > 0 && (
-                <div className="pt-10">
-                    <table className="table-auto w-full border-collapse border border-gray-200">
+                <div>
+                    <label htmlFor="region-dropdown">Region: </label>
+                    <select
+                        id="region-dropdown"
+                        value={selectedValue}
+                        onChange={handleRegionDropdownChange}
+                        className="styled-dropdown"
+                    >
+                        {uniqueRegionsArray && uniqueRegionsArray.map((item) => (
+                            <option key={item} value={`dropdown-option-${item}`}>
+                                {item}
+                            </option>
+                        ))}
+                    </select>
+
+                    <table className="styled-table">
                         <thead>
-                            <tr className="bg-blue-500">
-                                <th
-                                    className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-blue-300"
-                                    onClick={() => handleSort("name")}
-                                >
+                            <tr>
+                                <th onClick={() => handleSort("name")}>
                                     Name
                                 </th>
-                                <th
-                                    className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-blue-300"
-                                    onClick={() => handleSort("type")}
-                                >
+                                <th onClick={() => handleSort("type")}>
                                     Type
                                 </th>
-                                <th
-                                    className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-blue-300"
-                                    onClick={() => handleSort("region")}
-                                >
+                                <th onClick={() => handleSort("region")}>
                                     Region
                                 </th>
-                                <th
-                                    className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-blue-300"
-                                    onClick={() => handleSort("format")}
-                                >
+                                <th onClick={() => handleSort("format")}>
                                     Format
                                 </th>
-                                <th
-                                    className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-blue-300"
-                                    onClick={() => handleSort("price")}
-                                >
+                                <th onClick={() => handleSort("price")}>
                                     Price
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {sortedData.map((item) => (
-                                <tr
-                                    key={`${item.source_id}-${item.region}-${item.type}-${item.format}`}
-                                    className="select-none"
-                                >
-                                    <td className="border border-gray-300 px-4 py-2">{item.name}</td>
-                                    <td className="border border-gray-300 px-4 py-2">{item.type}</td>
-                                    <td className="border border-gray-300 px-4 py-2">{item.region}</td>
-                                    <td className="border border-gray-300 px-4 py-2">{item.format}</td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                <tr key={`${item.source_id}-${item.region}-${item.type}-${item.format}`}>
+                                    <td>{item.name}</td>
+                                    <td>{item.type}</td>
+                                    <td>{item.region}</td>
+                                    <td>{item.format}</td>
+                                    <td>
                                         {item.price ? item.price : "FREE with Subscription"}
                                     </td>
                                 </tr>

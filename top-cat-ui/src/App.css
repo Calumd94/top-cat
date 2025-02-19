@@ -149,3 +149,75 @@
   min-height: 100%;
   cursor: pointer;
 }
+
+/* MovieShowDetails Page */
+
+.details-container {
+  display: grid;
+  justify-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  padding-bottom: 5rem;
+  font-family: var(--font-geist-sans);
+  background-color: #1a1a1a; /* Dark background */
+  color: #ffffff; /* White text */
+}
+
+@media (min-width: 640px) {
+  .details-container {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .details-container {
+    padding: 5rem;
+  }
+}
+
+.movie-show-poster {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
+
+@media (min-width: 640px) {
+  .movie-show-poster {
+    display: flex;
+    justify-content: start; /* Center horizontally */
+  }
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove space between cells */
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.styled-table thead tr {
+  background-color: #9f2382; /* Header background color */
+  color: #ffffff; /* Header text color */
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px; /* Add padding to cells */
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd; /* Add border between rows */
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #454545; /* Alternate row color */
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #9f2382; /* Add border to the last row */
+}
+
+.styled-table tbody tr:hover {
+  background-color: #4e0040;
+  cursor: pointer;
+}
