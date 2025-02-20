@@ -153,8 +153,6 @@
 /* MovieShowDetails Page */
 
 .details-container {
-  display: grid;
-  justify-items: center;
   min-height: 100vh;
   padding: 1rem;
   padding-bottom: 5rem;
@@ -187,12 +185,38 @@
   }
 }
 
+.table-info {
+  overflow-x: auto;
+  width: 100%;
+  margin: 20px 0;
+}
+
+@media (min-width: 1024px) {
+  .table-info {
+    width: 80%;
+    margin: 20px auto;
+  }
+}
+
+.styled-dropdown {
+  width: 8%;
+  min-width: 4rem;
+  text-align: left;
+}
+
 .styled-table {
   width: 100%;
   border-collapse: collapse; /* Remove space between cells */
-  margin: 20px 0;
-  font-size: 16px;
+  font-size: 10px;
+  margin-top: 0.5rem;
   text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .styled-table {
+    border-collapse: collapse; /* Remove space between cells */
+    font-size: 16px;
+  }
 }
 
 .styled-table thead tr {

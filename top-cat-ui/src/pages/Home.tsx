@@ -32,9 +32,7 @@ export default function Home() {
             if (res.ok) {
                 const data = await res.json();
                 const movieOrShowResponse: MovieOrShowResponse = data;
-                console.log("movieOrShowResponse?.results:", movieOrShowResponse?.results);
-                console.log("movieOrShowResponse?.results?.length:", movieOrShowResponse?.results?.length);
-                setApiResponse(data?.message || "Success!");
+                setApiResponse(data?.message);
                 setMovieOrShowResponseResults(movieOrShowResponse?.results);
                 if (movieOrShowResponse?.results?.length > 0) {
                     navigate("/titles-page", { state: { results: movieOrShowResponse?.results } });
