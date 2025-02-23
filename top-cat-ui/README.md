@@ -137,3 +137,12 @@ kubectl rollout restart deployment top-cat-ui-deployment -n top-cat #Restart dep
 
 ---
 <br><br>
+
+
+daedalus@daedalus-MINI-S:~/Projects/Applications/top-cat/top-cat-ui/kubernetes$ minikube service top-cat-ui-service -n top-cat
+|-----------|--------------------|-------------|---------------------------|
+| NAMESPACE |        NAME        | TARGET PORT |            URL            |
+|-----------|--------------------|-------------|---------------------------|
+| top-cat   | top-cat-ui-service |          80 | http://192.168.49.2:32325 |
+|-----------|--------------------|-------------|---------------------------|
+🎉  Opening service top-cat/top-cat-ui-service in default browser...

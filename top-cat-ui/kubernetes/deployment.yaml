@@ -12,6 +12,10 @@ spec:
       labels:
         app: top-cat-ui
     spec:
+      # hostNetwork: true
+      # dnsPolicy: ClusterFirstWithHostNet
+      # imagePullSecrets:
+      #   - name: docker-registry-secret
       containers:
         - name: top-cat-ui
           image: calumd94/top-cat-ui:latest
