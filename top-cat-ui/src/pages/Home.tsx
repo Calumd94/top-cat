@@ -12,7 +12,7 @@ export default function Home() {
     const envRef = useRef<string>(""); // Initialize with an empty string
 
     useEffect(() => {
-        envRef.current = process.env.ENV || "dev"; // Default to dev if not set
+        envRef.current = process.env.REACT_APP_ENV || "dev"; // Default to dev if not set
         console.log(`Running in ${envRef.current} mode`);
     }, []);
 

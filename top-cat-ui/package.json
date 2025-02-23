@@ -2,6 +2,7 @@
   "name": "top-cat-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -24,7 +25,8 @@
   },
   "scripts": {
     "start:dev": "cross-env ENV=dev react-scripts start",
-    "start:prod": "cross-env ENV=prod PORT=3009 react-scripts start",
+    "start:docker": "cross-env ENV=prod PORT=3009 react-scripts start",
+    "start:prod": "cross-env ENV=prod react-scripts start",
     "build": "cross-env ENV=prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -47,3 +47,93 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+---
+<br><br>
+
+## Running Docker PROD
+1. Navigate to the Dockerfile location
+```bash
+cd top-cat-ui
+```
+2. Build the docker image
+```bash
+docker build --no-cache -t top-cat-ui .
+```
+3. Run the container
+```bash
+docker run -p 3009:80 top-cat-ui
+```
+```bash
+docker run -p 3009:80 calumd94/top-cat-ui:latest
+```
+4. Test if the server is running
+```
+http://localhost:3009
+```
+
+---
+<br><br>
+
+## Running Kubernetes PROD
+Make sure you push the local docker image to the repository
+1. Tag the image
+```bash
+docker tag my-image:latest my-registry/my-image:latest
+docker tag top-cat-ui:latest calumd94/top-cat-ui:latest
+```
+2. Push the image
+```bash
+docker push my-registry/my-image:latest
+docker push calumd94/top-cat-ui:latest
+```
+3. When rebuilding and pushing:
+```bash
+docker build -t calumd94/top-cat-ui:latest .
+```
+
+---
+
+## Kubernetes help
+- https://kubernetes.io/docs/reference/kubectl/quick-reference/#kubectl-context-and-configuration
+- https://dev.to/prodevopsguytech/writing-kubernetes-manifests-from-beginner-to-advanced-31bg
+- https://minikube.sigs.k8s.io/docs/tutorials/kubernetes_101/module1/
+```bash
+kubectl get nodes #List all nodes
+```
+```bash
+kubectl config get-clusters #List all clusters
+```
+```bash
+kubectl create namespace <name> #Create a namespace
+```
+```bash
+kubectl get pods --all-namespaces #Get all pods for all namespaces
+```
+```bash
+kubectl get pods -n top-cat #Get all pods for a specific namespace
+```
+```bash
+cd top-cat-ui/kubernetes
+kubectl apply -f '*.yaml' #Apply the configuration for all files that end with '.yaml'
+```
+```bash
+cd top-cat-ui/kubernetes
+kubectl apply -f './deployment.yaml' -n top-cat #Apply the configuration for this file
+```
+```bash
+kubectl delete pod top-cat-ui-deployment-756f69fb94-5mcbx -n default #Delete this pod from this namespace
+```
+```bash
+kubectl get deployments -n default #find deployemnts in default
+```
+```bash
+kubectl delete deployment <deployment-name> -n default #Remove this deployment from this namespace
+kubectl delete deployment top-cat-ui-deployment -n top-cat
+```
+```bash
+kubectl rollout restart deployment top-cat-ui-deployment -n top-cat #Restart deployment
+```
+
+---
+<br><br>

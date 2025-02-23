@@ -94,7 +94,7 @@ export default function MovieShowDetailsPage() {
 
     return (
         <div className="details-container">
-            <div>
+            <div className="summary-info">
                 <div className="movie-show-poster">
                     <img
                         src={movieDetails?.poster}
