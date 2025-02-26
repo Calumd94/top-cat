@@ -23,6 +23,3 @@ go.work.sum
 
 # env files
 .env*
-
-# Cloudflare file
-*.deb
